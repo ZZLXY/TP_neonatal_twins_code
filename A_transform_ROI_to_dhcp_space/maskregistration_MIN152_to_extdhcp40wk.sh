@@ -15,7 +15,7 @@
 #antsApplyTransforms -d 3 -i mni_icbm152_t1_tal_nlin_asym_09a_brain.nii -o mni_icbm152_t1_tal_nlin_asym_09a_brain_2extdhcp40wk.nii -r week40_T2w.nii.gz -t dhcp40wk_to_extdhcp40wk_warp.nii.gz -t ICBM1522newborn1Warp.nii.gz -t ICBM1522newborn0GenericAffine.mat
 
 
-# Read list of subjects. All processing will be carried out in /neuro/labs/gaablab/data/BabyMRI/INF0##_####/rest folder
+# Read list of subjects.
 
 
 
