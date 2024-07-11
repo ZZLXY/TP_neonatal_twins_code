@@ -32,7 +32,7 @@ for i = 1:Subjects_Quantity
     
     
     if strcmp(Pre_Method, 'Normalize')
-        %Normalizing
+        %Normalize
         MeanValue = mean(Training_all_data);
         StandardDeviation = sqrt(var(Training_all_data));
         [rows, columns_quantity] = size(Training_all_data);
@@ -45,7 +45,7 @@ for i = 1:Subjects_Quantity
         
         
     elseif strcmp(Pre_Method, 'Scale')
-        % Scaling to [0 1]
+        % Scale to [0 1]
         MinValue = min(Training_all_data);
         MaxValue = max(Training_all_data);
         [rows, columns_quantity] = size(Training_all_data);
@@ -60,7 +60,7 @@ for i = 1:Subjects_Quantity
     model(i) = svmtrain(Label, Training_all_data,'-s 3 -t 2');
 
     if strcmp(Pre_Method, 'Normalize')
-        % Normalizing
+        % Normalize
         test_data = (test_data - MeanValue) ./ StandardDeviation;
         test_label= (test_label- MeanValuelabel)/StandardDeviationlabel;
     elseif strcmp(Pre_Method, 'Scale')
