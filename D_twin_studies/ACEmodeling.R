@@ -4,7 +4,7 @@ library(umx)
 library(readxl)
 library("R.matlab")
 
-# the path of the data matrix
+# define the path of the data matrix
 path<-("XXX")
 
 # load the data matrix
@@ -19,7 +19,7 @@ dir.create(destfolder)
 TraitName = read_excel(paste(path, "TraitName.xlsx", sep = "/"))
 TraitNum = length(data.frame(TraitName)[,1])
 
-##save result: AIC, BIC, fit loglike, a, c, e
+##save results: AIC, BIC, fit loglike, a, c, e
 result_ace=matrix(0,TraitNum,9)
 result_ae=matrix(0,TraitNum,9)
 result_ce=matrix(0,TraitNum,9)
@@ -109,7 +109,7 @@ for (i in 1:TraitNum){
   result_de[i,6]=mde@output$algebras$top.e_std[1,1]
   result_de[i,8]=mde@output$standardErrors[4,1]
   result_de[i,9]=mde@output$standardErrors[5,1]
-  ## model compare ace
+  ## model comparison: with ace model
   ace_ae=umxCompare(mace,mae)
   ace_ce=umxCompare(mace,mce)
   ace_e=umxCompare(mace,me)
@@ -125,7 +125,7 @@ for (i in 1:TraitNum){
   result_compare_ace[i,8]=ae_e[2,5]
   result_compare_ace[i,9]=ce_e[2,7]
   result_compare_ace[i,10]=ce_e[2,5]
-  ## model compare ade
+  ## model comparison: with ade model
   ade_ae=umxCompare(made,mae)
   ade_de=umxCompare(made,mde)
   ade_e=umxCompare(made,me)
