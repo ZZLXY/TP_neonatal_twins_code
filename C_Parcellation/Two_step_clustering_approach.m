@@ -1,6 +1,6 @@
 clear;
 clc;
-% define the path of FC matrix
+% define the path to FC matrices
 SubPath = 'XXX';
 Sub = dir([SubPath filesep 'Sub*']);
 
@@ -34,7 +34,7 @@ mkdir(OutputPath);
 Group_SilhouetteValue = zeros(2,8);
 Individual_SilhouetteValue = zeros(SubNum, 8, 2);
 
-% Parcellating the left or right TP into 2-8 subdivisions separately.
+% parcellate the left and/or right TP into 2-8 subdivisions separately.
 for ParcelNum = 2:8
     mkdir([OutputPath filesep 'Parcel' num2str(ParcelNum)]);
     Sub_OutPutPath = [OutputPath filesep 'Parcel' num2str(ParcelNum)];
@@ -43,8 +43,8 @@ for ParcelNum = 2:8
         Individual_ParcelLabel = zeros(length(LR_loc{hemi}), SubNum);
         % subject level
         for sub = 1:SubNum
-            % load FC matrix of the participants
-            load([ SubPath filesep Sub(sub).name]); %matrix name is 'FCMatrix'
+            % load FC matrix of the current participant
+            load([ SubPath filesep Sub(sub).name]); %the name of matrix is 'FCMatrix'
             FCMatrix = FCMatrix(LR_loc{hemi}, :);
             FCMatrix = zscore(FCMatrix);  
             [idx,cent,sumdist] = kmeans(FCMatrix,ParcelNum,'Distance','sqeuclidean','Display','final','Replicates',100); 
@@ -83,7 +83,7 @@ for ParcelNum = 2:8
             ParcelMap(Parcel(i,1)) = Parcel(i,2);
         end
         
-        % Saving the final partition map
+        % save the brain map of TP subdivisions
         OutputMap = TP;
         OutputMap.img = ParcelMap;
         save_nii(OutputMap, [Sub_OutPutPath filesep Hemisphere{hemi} '_ParcelMap.nii']);
