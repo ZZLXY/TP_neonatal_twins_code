@@ -10,11 +10,11 @@ RunNum = length(RunDir);
 OutputPath = 'The output path';
 SubregionLabel = {'XXX', 'XXX', 'XXX'};
 
-% Defining ROI Mask
+%Define the path to the ROI masks
 ROI = load_nii('XXX'); 
 ROIMask = double(ROI.img);
 [Dim1, Dim2, Dim3] = size(ROIMask);
-%Load seed mask
+%Load the seed masks
 Seedregion = load_nii('XXX'); 
 SeedregionMask = double(Seedregion.img);
 SeedRegionNum=max(max(max(SeedregionMask)));
