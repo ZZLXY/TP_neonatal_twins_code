@@ -1,13 +1,13 @@
 #! /bin/bash
 
-#The adult MNI152 template used could be download from: https://www.bic.mni.mcgill.ca/ServicesAtlases/ICBM152NLin2009
-#The template_t2.nii used could be download form: https://gin.g-node.org/BioMedIA/dhcp-volumetric-atlas-groupwise
-#The extended dHCP volumetric atlas and transformation matrix used could be download from:https://git.fmrib.ox.ac.uk/seanf/dhcp-resources/-/blob/master/docs/dhcp-augmented-volumetric-atlas-extended.md#download-42-gb
+#The adult MNI152 template used can be download from: https://www.bic.mni.mcgill.ca/ServicesAtlases/ICBM152NLin2009
+#The template_t2.nii used can be download form: https://gin.g-node.org/BioMedIA/dhcp-volumetric-atlas-groupwise
+#The extended dHCP volumetric atlas and transformation matrix used can be download from:https://git.fmrib.ox.ac.uk/seanf/dhcp-resources/-/blob/master/docs/dhcp-augmented-volumetric-atlas-extended.md#download-42-gb
 
 #We used a two-step registration approach: first, transforming the adult ROI to the template_t2 space (dhcp release 2), and then to the extdhcp40wk space (release 3). 
 #Careful inspection revealed that the ROI transformed to the newborn space was more accurate using this method.
 
-#codes used to generate the registration matrix for transform the atlas in MNI152 09a space into template t2 space (dhcp release 2)
+#codes used to generate the registration matrix for transform atlas in MNI152 09a space into template t2 space (dhcp release 2)
 #antsRegistrationSyNQuick.sh -d 3 -f template_t2.nii -m mni_icbm152_t1_tal_nlin_asym_09a_brain.nii -o ICBM1522newborn
 
 
