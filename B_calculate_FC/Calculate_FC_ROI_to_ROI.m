@@ -1,26 +1,26 @@
 function m = Calculate_FC_ROI_to_ROI(SubID)
 
-%Defining where are the runs, the run number, and the path of the runs
+%Define the locations of the runs, the run numbers, and the paths to the runs.
 RunPath = 'you data path';
 RunDir(1) = dir([RunPath filesep '*RWCFS']);
 
 RunNum = length(RunDir);
 
-%OUTPUT PATH
+%Define the output path
 OutputPath = 'XXX';
 
-% Defining Seed path
+% Define the path to the ROIs
 ROIpath = 'XXX';
 ROIname = dir([ROIpath filesep '*mask.nii']);
 
 ROINum = length(ROIname); 
 
-%LOAD TP SUBREGIONS MASK
+%Load the mask of TP subdivisions
 TPSubregion = load_nii('XXX/*.nii'); 
 TPSubregionMask = double(TPSubregion.img);
 SubRegionNum=max(max(max(TPSubregionMask)));
 
-%define the final FC matrix
+%Define the final FC matrix
 SubRegionFC = zeros(SubRegionNum,ROINum);
 
 for Run = 1:RunNum
