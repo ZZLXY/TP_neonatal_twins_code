@@ -1,12 +1,12 @@
 function m = Calculate_FC_Seed_to_Voxel(SubID)
 
-%Defining where are the runs, the run number, and the path of the runs
+%Define the locations of the runs, the run numbers, and the paths to the runs.
 RunPath = 'you data path';
 RunDir(1) = dir([RunPath filesep '*RWCFS']);
 
 RunNum = length(RunDir);
 
-%OUTPUT PATH
+%Define the output path
 OutputPath = 'The output path';
 SubregionLabel = {'XXX', 'XXX', 'XXX'};
 
