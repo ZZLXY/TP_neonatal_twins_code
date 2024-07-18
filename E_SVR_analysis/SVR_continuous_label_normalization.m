@@ -6,7 +6,7 @@ function [cor_temp,p_temp,cor_temp_pearson,p_temp_pearson,R2_test, Test_label_ou
 %           n is the number of features
 %
 % Subject_Label:
-%           array of 0 or 1
+%           array of 0 or 1, or continous variables
 %
 % ResultantFolder:
 %           the path of folder storing resultant files
