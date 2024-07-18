@@ -1,5 +1,3 @@
-clear;
-clc;
 % define the path to FC matrices
 SubPath = 'XXX';
 Sub = dir([SubPath filesep 'Sub*']);
