@@ -1,10 +1,10 @@
 #! /bin/bash
 
-#The adult MNI152 template used can be download from: https://www.bic.mni.mcgill.ca/ServicesAtlases/ICBM152NLin2009
-#The template_t2.nii used can be download form: https://gin.g-node.org/BioMedIA/dhcp-volumetric-atlas-groupwise
-#The extended dHCP volumetric atlas and transformation matrix used can be download from:https://git.fmrib.ox.ac.uk/seanf/dhcp-resources/-/blob/master/docs/dhcp-augmented-volumetric-atlas-extended.md#download-42-gb
+#The adult MNI152 templates used here can be download from: https://www.bic.mni.mcgill.ca/ServicesAtlases/ICBM152NLin2009
+#The template_t2.nii can be download form: https://gin.g-node.org/BioMedIA/dhcp-volumetric-atlas-groupwise
+#The extended dHCP volumetric atlas and transformation matrix can be download from:https://git.fmrib.ox.ac.uk/seanf/dhcp-resources/-/blob/master/docs/dhcp-augmented-volumetric-atlas-extended.md#download-42-gb
 
-#We used a two-step registration approach: first, transforming the adult ROI to the template_t2 space (dhcp release 2), and then to the extdhcp40wk space (release 3). 
+#We used a two-step registration approach: we first transformed the adult ROIs to the template_t2 space (dhcp release 2), which were then transformed to the extdhcp40wk space (release 3) using the transformation matrix provided in the third release.
 #Careful inspection revealed that the ROI transformed to the newborn space was more accurate using this method.
 
 #codes used to generate the registration matrix for transform atlas in MNI152 09a space into template t2 space (dhcp release 2)
