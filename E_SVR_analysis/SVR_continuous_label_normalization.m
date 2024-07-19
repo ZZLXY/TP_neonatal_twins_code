@@ -8,9 +8,6 @@ function [cor_temp_pearson,p_temp_pearson, Test_label_outcome, predicted_labels]
 % Subject_Label:
 %           array of 0 or 1, or continous variables
 %
-% ResultantFolder:
-%           the path of folder storing resultant files
-%
 
 [Subjects_Quantity Feature_Quantity] = size(Subjects_Data);
 
