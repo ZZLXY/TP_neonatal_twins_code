@@ -1,4 +1,4 @@
-function [cor_temp,p_temp,cor_temp_pearson,p_temp_pearson,R2_test, Test_label_outcome, predicted_labels]=SVM_continuous_label_normalization(Subjects_Data, Subjects_Label, Pre_Method)
+function [cor_temp_pearson,p_temp_pearson, Test_label_outcome, predicted_labels]=SVM_continuous_label_normalization(Subjects_Data, Subjects_Label, Pre_Method)
 %
 % Subject_Data:
 %           m*n matrix
@@ -75,6 +75,4 @@ for i = 1:Subjects_Quantity
     
 end
 
-[cor_temp,p_temp]=corr(predicted_labels,Test_label_outcome,'Type','Spearman','Tail','right');
 [cor_temp_pearson,p_temp_pearson]=corr(predicted_labels,Test_label_outcome,'Type','Pearson','Tail','right');
-[R2_test]=cross_validation_R2(predicted_labels,Test_label_outcome);
