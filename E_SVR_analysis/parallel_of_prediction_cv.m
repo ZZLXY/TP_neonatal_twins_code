@@ -25,14 +25,14 @@ for iterationno=1:nTask
     tempregion_specfic_data(tempnanindex',:)=[]; 
     
     % Perform the prediction
-    [performance_fc_pearson(iterationno), performance_fc_pearson_p(iterationno)]=SVR_continuous_label_normalization(tempregion_specfic_data, tempperformance, 'Normalize');
+    [performance_fc_pearson(iterationno), performance_fc_pearson_p(iterationno)]=SVR_continuous_label_normalization(tempregion_specfic_data, tempperformance);
     
     % Perform the prediction based on shuffled data
    for shuffleno=1:10000
        % Shuffle the data based on pre-generated random numbers
        tempperformanceshuffle=tempperformance(subseq(:,shuffleno));
 
-       [performance_fc_pearson_permutation(iterationno,shuffleno), performance_fc_pearson_p_permutation(iterationno,shuffleno)]=SVR_continuous_label_normalization(tempregion_specfic_data, tempperformanceshuffle, 'Normalize');
+       [performance_fc_pearson_permutation(iterationno,shuffleno), performance_fc_pearson_p_permutation(iterationno,shuffleno)]=SVR_continuous_label_normalization(tempregion_specfic_data, tempperformanceshuffle);
 
        clear tempregion_specfic_datashuffle tempperformanceshuffle;
    end
