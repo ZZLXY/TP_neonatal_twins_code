@@ -1,4 +1,4 @@
-function [cor_temp_pearson,p_temp_pearson, Test_label_outcome, predicted_labels]=SVM_continuous_label_normalization(Subjects_Data, Subjects_Label, Pre_Method)
+function [cor_temp_pearson,p_temp_pearson, Test_label_outcome, predicted_labels]=SVM_continuous_label_normalization(Subjects_Data, Subjects_Label)
 %
 % Subject_Data:
 %           m*n matrix
@@ -6,7 +6,7 @@ function [cor_temp_pearson,p_temp_pearson, Test_label_outcome, predicted_labels]
 %           n is the number of features
 %
 % Subject_Label:
-%           array of continuous variables
+%           Array of continuous variables
 %
 
 [Subjects_Quantity Feature_Quantity] = size(Subjects_Data);
@@ -27,43 +27,25 @@ for i = 1:Subjects_Quantity
     Training_all_data =Subjects_Data_tmp;
     Label=Subjects_Label_tmp;
     
-    
-    if strcmp(Pre_Method, 'Normalize')
-        %Normalize
-        MeanValue = mean(Training_all_data);
-        StandardDeviation = sqrt(var(Training_all_data));
-        [rows, columns_quantity] = size(Training_all_data);
-        for j = 1:columns_quantity
-            Training_all_data(:, j) = (Training_all_data(:, j) - MeanValue(j)) / StandardDeviation(j);
-        end
-        MeanValuelabel=mean(Label);
-        StandardDeviationlabel = sqrt(var(Label));
-        Label=(Label-MeanValuelabel)/StandardDeviationlabel;
-        
-        
-    elseif strcmp(Pre_Method, 'Scale')
-        % Scale to [0 1]
-        MinValue = min(Training_all_data);
-        MaxValue = max(Training_all_data);
-        [rows, columns_quantity] = size(Training_all_data);
-        for j = 1:columns_quantity
-            Training_all_data(:, j) = (Training_all_data(:, j) - MinValue(j)) / (MaxValue(j) - MinValue(j));
-        end
+    %Normalize the training data
+    MeanValue = mean(Training_all_data);
+    StandardDeviation = sqrt(var(Training_all_data));
+    [rows, columns_quantity] = size(Training_all_data);
+    for j = 1:columns_quantity
+        Training_all_data(:, j) = (Training_all_data(:, j) - MeanValue(j)) / StandardDeviation(j);
     end
+    MeanValuelabel=mean(Label);
+    StandardDeviationlabel = sqrt(var(Label));
+    Label=(Label-MeanValuelabel)/StandardDeviationlabel;
 
     % SVR classification
     Label = reshape(Label, length(Label), 1);
     Training_all_data = double(Training_all_data);
     model(i) = svmtrain(Label, Training_all_data,'-s 3 -t 2');
 
-    if strcmp(Pre_Method, 'Normalize')
-        % Normalize
-        test_data = (test_data - MeanValue) ./ StandardDeviation;
-        test_label= (test_label- MeanValuelabel)/StandardDeviationlabel;
-    elseif strcmp(Pre_Method, 'Scale')
-        % Scale
-        test_data = (test_data - MinValue) ./ (MaxValue - MinValue);
-    end
+    % Normalize the testing data
+    test_data = (test_data - MeanValue) ./ StandardDeviation;
+    test_label= (test_label- MeanValuelabel)/StandardDeviationlabel;
 
     % predicts
     test_data = double(test_data);
