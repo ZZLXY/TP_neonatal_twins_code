@@ -2,9 +2,14 @@
 addpath(genpath('XXX/libsvm-3.22'));
 % Read you data files
 load('your_data_file.mat'); 
+%The data file includes:
+% 1）Activity_3Subdivision: A matrix that stores the variables to be predicted.
+% 2）FCPattern_3Subdivision: A cell array that stores the feature matrices.
+% 3）sigpair: A pre-defined matrix that stores the label pairs of the features and their corresponding performances. 
+%            These labels will be used below to identify which features and performances to use for each prediction task.
+% 4）subseq: A matrix that stores the pre-generated random numbers, which 
+%            are used to shuffle the true data for the permutation test.
 
-%The variable 'sigpair' is a pre-defined matrix that stores the label pairs of the features and their corresponding performances. 
-%These labels will be used below to identify which features and performances to use for each prediction task.
 [nTask, ~] = size(sigpair); 
 
 for iterationno=1:nTask 
