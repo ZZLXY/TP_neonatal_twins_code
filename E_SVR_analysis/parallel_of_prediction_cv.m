@@ -21,10 +21,8 @@ for iterationno=1:nTask
     tempperformance(tempnanindex')=[];
     
     %Find the feature matrix that is currently being used
-    tempR2R_region=FCPattern_3Subdivision{sigpair(iterationno,1)}; 
-    tempR2R_region(tempnanindex',:)=[]; 
-
-    tempregion_specfic_data=tempR2R_region; 
+    tempregion_specfic_data=FCPattern_3Subdivision{sigpair(iterationno,1)}; 
+    tempregion_specfic_data(tempnanindex',:)=[]; 
     
     % Perform the prediction
     [performance_fc_pearson(iterationno), performance_fc_pearson_p(iterationno)]=SVR_continuous_label_normalization(tempregion_specfic_data, tempperformance, 'Normalize');
