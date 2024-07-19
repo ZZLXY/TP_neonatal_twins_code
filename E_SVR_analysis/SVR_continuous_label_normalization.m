@@ -6,7 +6,7 @@ function [cor_temp_pearson,p_temp_pearson, Test_label_outcome, predicted_labels]
 %           n is the number of features
 %
 % Subject_Label:
-%           array of continous variables
+%           array of continuous variables
 %
 
 [Subjects_Quantity Feature_Quantity] = size(Subjects_Data);
