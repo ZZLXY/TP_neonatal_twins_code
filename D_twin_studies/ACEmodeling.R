@@ -24,10 +24,7 @@ result_ace=matrix(0,TraitNum,9)
 result_ae=matrix(0,TraitNum,9)
 result_ce=matrix(0,TraitNum,9)
 result_e=matrix(0,TraitNum,9)
-result_ade=matrix(0,TraitNum,9)
-result_de=matrix(0,TraitNum,9)
 result_compare_ace=matrix(0,TraitNum,10)##ace-ae,ace-ce,ace-e,ae-e,ce-e change direction and p
-result_compare_ade=matrix(0,TraitNum,10)##ade-ae,ade-de,ade-e,ae-e,de-e change direction and p
 
 mz_Data=subset(data,Zygosity==1)
 dz_Data=subset(data,Zygosity==2)
@@ -43,11 +40,8 @@ for (i in 1:TraitNum){
   mae=umxModify(mace, update = "c_r1c1", name = "AE")
   mce=umxModify(mace, update = "a_r1c1", name = "CE")
   me=umxModify(mae, update = "a_r1c1", name = "E")
-  ##for ade and submodel
-  made = umxACE(selDVs = CurrTrait, selCovs = c("Age", "Gender"), sep = "", dzData = dz_Data, mzData = mz_Data, dzCr = .25)
-  mde=umxModify(made, update = "a_r1c1", name = "DE")
   
-  ## save ace,ade and submodel result
+  ## save ace and submodel result
   ##ace
   mace_stats=summary(mace)
   result_ace[i,1]=mace_stats[["AIC.Mx"]]
@@ -88,27 +82,7 @@ for (i in 1:TraitNum){
   result_e[i,5]=me@output$algebras$top.c_std[1,1]
   result_e[i,6]=me@output$algebras$top.e_std[1,1]
   result_e[i,9]=me@output$standardErrors[4,1]
-  ##ade
-  made_stats=summary(made)
-  result_ade[i,1]=made_stats[["AIC.Mx"]]
-  result_ade[i,2]=made_stats[["BIC.Mx"]]
-  result_ade[i,3]=made@fitfunction$result[1,1]
-  result_ade[i,4]=made@output$algebras$top.a_std[1,1]
-  result_ade[i,5]=made@output$algebras$top.c_std[1,1]
-  result_ade[i,6]=made@output$algebras$top.e_std[1,1]
-  result_ade[i,7]=made@output$standardErrors[4,1] # a SE
-  result_ade[i,8]=made@output$standardErrors[5,1] # c SE
-  result_ade[i,9]=made@output$standardErrors[6,1] # e SE
-  ##de
-  mde_stats=summary(mde)
-  result_de[i,1]=mde_stats[["AIC.Mx"]]
-  result_de[i,2]=mde_stats[["BIC.Mx"]]
-  result_de[i,3]=mde@fitfunction$result[1,1]
-  result_de[i,4]=mde@output$algebras$top.a_std[1,1]
-  result_de[i,5]=mde@output$algebras$top.c_std[1,1]
-  result_de[i,6]=mde@output$algebras$top.e_std[1,1]
-  result_de[i,8]=mde@output$standardErrors[4,1]
-  result_de[i,9]=mde@output$standardErrors[5,1]
+
   ## model comparison: with ace model
   ace_ae=umxCompare(mace,mae)
   ace_ce=umxCompare(mace,mce)
@@ -125,57 +99,29 @@ for (i in 1:TraitNum){
   result_compare_ace[i,8]=ae_e[2,5]
   result_compare_ace[i,9]=ce_e[2,7]
   result_compare_ace[i,10]=ce_e[2,5]
-  ## model comparison: with ade model
-  ade_ae=umxCompare(made,mae)
-  ade_de=umxCompare(made,mde)
-  ade_e=umxCompare(made,me)
-  ae_e=umxCompare(mae,me)
-  de_e=umxCompare(mde,me)
-  result_compare_ade[i,1]=ade_ae[2,7]
-  result_compare_ade[i,2]=ade_ae[2,5]
-  result_compare_ade[i,3]=ade_de[2,7]
-  result_compare_ade[i,4]=ade_de[2,5]
-  result_compare_ade[i,5]=ade_e[2,7]
-  result_compare_ade[i,6]=ade_e[2,5]
-  result_compare_ade[i,7]=ae_e[2,7]
-  result_compare_ade[i,8]=ae_e[2,5]
-  result_compare_ade[i,9]=de_e[2,7]
-  result_compare_ade[i,10]=de_e[2,5]
 }
 ## change form
 result_ace = data.frame(result_ace)
 result_ae = data.frame(result_ae)
 result_ce = data.frame(result_ce)
-result_ade = data.frame(result_ade)
-result_de = data.frame(result_de)
 result_e=data.frame(result_e)
 result_compare_ace = data.frame(result_compare_ace)
-result_compare_ade = data.frame(result_compare_ade)
 
 ## write data
 idx = "FC"
 ace_file_name=paste("ace_",idx,".txt",sep='')
 ace_dest<-file.path(destfolder,ace_file_name)
 write.table(result_ace,ace_dest,row.names = FALSE,col.names = FALSE)
-ade_file_name=paste("ade_",idx,".txt",sep='')
-ade_dest<-file.path(destfolder,ade_file_name)
-write.table(result_ade,ade_dest,row.names = FALSE,col.names = FALSE)
 ae_file_name=paste("ae_",idx,".txt",sep='')
 ae_dest<-file.path(destfolder,ae_file_name)
 write.table(result_ae,ae_dest,row.names = FALSE,col.names = FALSE)
 ce_file_name=paste("ce_",idx,".txt",sep='')
 ce_dest<-file.path(destfolder,ce_file_name)
 write.table(result_ce,ce_dest,row.names = FALSE,col.names = FALSE)
-de_file_name=paste("de_",idx,".txt",sep='')
-de_dest<-file.path(destfolder,de_file_name)
-write.table(result_de,de_dest,row.names = FALSE,col.names = FALSE)
 e_file_name=paste("e_",idx,".txt",sep='')
 e_dest<-file.path(destfolder,e_file_name)
 write.table(result_e,e_dest,row.names = FALSE,col.names = FALSE)
 compare_ace_file_name=paste("compare_ace_",idx,".csv",sep='')
 compare_ace_dest<-file.path(destfolder,compare_ace_file_name)
 write.csv(result_compare_ace,compare_ace_dest,row.names = FALSE, col.names = FALSE)
-compare_ade_file_name=paste("compare_ade_",idx,".csv",sep='')
-compare_ade_dest<-file.path(destfolder,compare_ade_file_name)
-write.csv(result_compare_ade,compare_ade_dest,row.names = FALSE,col.names = FALSE)
-#}
+
